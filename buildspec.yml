@@ -5,11 +5,17 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region ap-northeast-1)
+      - git clone "https://$GITHUB_TOKEN@github.com/darma2anderson/aws-pipeline-sample.git"
+      - cd aws-pipeline-sample
+      - IMAGE_TAG=$(git rev-parse --abbrev-ref HEAD)
+      - cd ..
   build:
     commands:
+      - ls -la
+      - which git
       - echo Build started on `date`
-      - docker build --no-cache -t api:${IMAGE_TAG} .
-      - docker tag api:$IMAGE_TAG $ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/api:$IMAGE_TAG
+      - docker build --no-cache -t api:latest .
+      - docker tag api:latest $ACCOUNT_ID.dkr.ecr.ap-northeast-1.amazonaws.com/api:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed on `date`
