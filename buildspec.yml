@@ -5,7 +5,7 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region ap-northeast-1)
-      - git clone git@github.com:darma2anderson/aws-pipeline-sample.git
+      - git clone "https://$GITHUB_TOKEN@github.com/darma2anderson/aws-pipeline-sample.git"
       - cd aws-pipeline-sample
       - IMAGE_TAG=$(git rev-parse --abbrev-ref HEAD)
       - cd ..
