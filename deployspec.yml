@@ -9,6 +9,11 @@ phases:
       - cd aws-pipeline-sample
       - IMAGE_TAG=$(git describe --tags --abbrev=0)
       - cd ..
+      - echo start env values...
+      - echo $CODEBUILD_RESOLVED_SOURCE_VERSION
+      - echo $CODEBUILD_SOURCE_VERSION
+      - echo $CODEBUILD_WEBHOOK_TRIGGER
+      - echo end env values...
   build:
     commands:
       - echo Build started on `date`
